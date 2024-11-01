@@ -3,8 +3,6 @@
 #include <assert.h>
 #include <zfw_common_mem.h>
 
-#define TILE_SIZE 8
-
 zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int height, zfw_user_func_data_t *const zfw_data)
 {
     assert(width > 0 && height > 0);
@@ -21,7 +19,7 @@ zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int hei
         return ZFW_FALSE;
     }
 
-    memset(tilemap->types, 0, sizeof(*tilemap->types));
+    memset(tilemap->types, 0, sizeof(*tilemap->types) * width * height);
 
     tilemap->slot_keys = zfw_mem_arena_alloc(zfw_data->main_mem_arena, sizeof(*tilemap->slot_keys) * width * height);
 
@@ -30,7 +28,7 @@ zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int hei
         return ZFW_FALSE;
     }
 
-    memset(tilemap->slot_keys, 0, sizeof(*tilemap->slot_keys));
+    memset(tilemap->slot_keys, 0, sizeof(*tilemap->slot_keys) * width * height);
 
     // Take all the sprite batch slot keys needed for the tilemap.
     zfw_take_multiple_render_layer_sprite_batch_slots(tilemap->slot_keys, width * height, ZFW_SPRITE_BATCH_GROUP_ID__VIEW, 0, 0, zfw_data->sprite_batch_groups, zfw_data->main_mem_arena);
