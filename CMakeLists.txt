@@ -10,6 +10,8 @@ add_executable(zfw_example_game
 	src/entry.c
 	src/game.c
 	src/game.h
+	src/player.c
+	src/player.h
 
 	zeta_framework/vendor/glad/src/glad.c
 )

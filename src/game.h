@@ -4,6 +4,7 @@
 #include <zfw_game.h>
 #include <zfw_common_bits.h>
 #include <zfw_rendering.h>
+#include "player.h"
 
 typedef enum
 {
@@ -14,7 +15,7 @@ typedef enum
 
 typedef struct
 {
-    int a;
+    player_t player;
 } game_t;
 
 void on_game_init(void *const user_ptr, zfw_user_func_data_t *const zfw_data);
