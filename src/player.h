@@ -4,6 +4,7 @@
 #include <zfw_game.h>
 #include <zfw_rendering.h>
 #include <zfw_common_math.h>
+#include "tilemap.h"
 
 typedef struct
 {
@@ -12,6 +13,6 @@ typedef struct
 } player_t;
 
 void init_player(player_t *const player, zfw_user_func_data_t *const zfw_data);
-void update_player(player_t *const player, zfw_user_func_data_t *const zfw_data);
+void update_player(player_t *const player, tilemap_t *const tilemap, zfw_user_func_data_t *const zfw_data);
 
 #endif

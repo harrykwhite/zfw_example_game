@@ -12,6 +12,8 @@ add_executable(zfw_example_game
 	src/game.h
 	src/player.c
 	src/player.h
+	src/tilemap.c
+	src/tilemap.h
 
 	zeta_framework/vendor/glad/src/glad.c
 )
