@@ -4,15 +4,33 @@
 #include <math.h>
 
 #include "zfw_rendering.h"
+#include "tex_src_rects.h"
+
+/*
+    Checks (through assertion) whether the sizes of all the tile texture source rectangles are equal to the specified tile size.
+*/
+static void check_tile_tex_src_rect_sizes()
+{
+    for (int i = 1; i < TILE_TYPE_COUNT; ++i)
+    {
+        const zfw_rect_t *src_rect = &k_tex_src_rects[get_tile_type_tex_src_rect_id((tile_type_id_t)i)];
+        assert(src_rect->w == TILE_SIZE && src_rect->h == TILE_SIZE);
+    }
+}
 
 void on_game_init(void *const user_ptr, zfw_user_func_data_t *const zfw_data)
 {
     game_t *const game = user_ptr;
 
-    zfw_data->view_state->scale = 2.0f;
-
     // Reset the game struct in case this is a game restart.
     memset(game, 0, sizeof(*game));
+
+    // NOTE: Might be a good idea to move this check into main().
+#ifdef DEBUG
+    check_tile_tex_src_rect_sizes();
+#endif
+
+    zfw_data->view_state->scale = 2.0f;
 
     init_player(&game->player, zfw_data);
     init_tilemap(&game->tilemap, 80, 45, zfw_data);

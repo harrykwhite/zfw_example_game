@@ -2,6 +2,24 @@
 
 #include <assert.h>
 #include <zfw_common_mem.h>
+#include "tex_src_rects.h"
+
+tex_src_rect_id_t get_tile_type_tex_src_rect_id(const tile_type_id_t tile_type)
+{
+    assert(tile_type);
+
+    switch (tile_type)
+    {
+        case TILE_TYPE_ID__DIRT:
+            return TEX_SRC_RECT_ID__DIRT_TILE;
+
+        case TILE_TYPE_ID__STONE:
+            return TEX_SRC_RECT_ID__STONE_TILE;
+
+        default:
+            assert(ZFW_FALSE);
+    }
+}
 
 zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int height, zfw_user_func_data_t *const zfw_data)
 {
@@ -38,7 +56,7 @@ zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int hei
     {
         for (int tx = 0; tx < tilemap->width; ++tx)
         {
-            update_tilemap_tile_type_and_display(tilemap, tx, ty, TILE_TYPE_ID__DIRT, zfw_data);
+            update_tilemap_tile_type_and_display(tilemap, tx, ty, zfw_gen_rand_perc() < 0.5f ? TILE_TYPE_ID__DIRT : TILE_TYPE_ID__STONE, zfw_data);
         }
     }
 
@@ -64,13 +82,17 @@ void update_tilemap_tile_type_and_display(tilemap_t *const tilemap, const int tx
     if (tile_type)
     {
         // The type is not 0, meaning that something has to be drawn here.
-        const zfw_vec_2d_t pos = zfw_create_vec_2d(tx * TILE_SIZE, ty * TILE_SIZE);
-
-        zfw_rect_t src_rect;
-        zfw_init_rect(&src_rect, 16, 0, 8, 8);
-        //zfw_init_rect(&src_rect, 24, 0, 8, 8);
-
-        zfw_write_to_render_layer_sprite_batch_slot(tilemap->slot_keys[ti], pos, 0.0f, zfw_create_vec_2d(1.0f, 1.0f), zfw_create_vec_2d(0.0f, 0.0f), &src_rect, &zfw_k_color_white, zfw_data->sprite_batch_groups, zfw_data->user_tex_data);
+        zfw_write_to_render_layer_sprite_batch_slot(
+            tilemap->slot_keys[ti],
+            zfw_create_vec_2d(tx * TILE_SIZE, ty * TILE_SIZE),
+            0.0f,
+            zfw_create_vec_2d(1.0f, 1.0f),
+            zfw_create_vec_2d(0.0f, 0.0f),
+            &k_tex_src_rects[get_tile_type_tex_src_rect_id(tile_type)],
+            &zfw_k_color_white,
+            zfw_data->sprite_batch_groups,
+            zfw_data->user_tex_data
+        );
     }
     else
     {
