@@ -12,6 +12,8 @@ add_executable(zfw_example_game
 	src/game.h
 	src/player.c
 	src/player.h
+	src/world.c
+	src/world.h
 	src/tilemap.c
 	src/tilemap.h
 	src/tex_src_rects.c

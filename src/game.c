@@ -32,8 +32,7 @@ void on_game_init(void *const user_ptr, zfw_user_func_data_t *const zfw_data)
 
     zfw_data->view_state->scale = 2.0f;
 
-    init_player(&game->player, zfw_data);
-    init_tilemap(&game->tilemap, 80, 45, zfw_data);
+    init_world(&game->world, zfw_data);
 }
 
 void on_game_tick(void *const user_ptr, zfw_user_func_data_t *const zfw_data, const int zfw_frame_tick_count, const double zfw_frame_time_interval_accum)
@@ -52,7 +51,7 @@ void on_game_tick(void *const user_ptr, zfw_user_func_data_t *const zfw_data, co
         *zfw_data->restart = ZFW_TRUE;
     }
 
-    update_player(&game->player, &game->tilemap, zfw_data);
+    update_world(&game->world, zfw_data);
 }
 
 void on_window_resize(void *const user_ptr, zfw_user_func_data_t *const zfw_data)

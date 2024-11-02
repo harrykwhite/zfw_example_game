@@ -11,6 +11,7 @@ typedef struct
     zfw_vec_2d_t pos;
     zfw_vec_2d_t vel;
     zfw_sprite_batch_slot_key_t sb_slot_key;
+    zfw_bool_t jumping;
 } player_t;
 
 void init_player(player_t *const player, zfw_user_func_data_t *const zfw_data);

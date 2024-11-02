@@ -30,6 +30,9 @@ tex_src_rect_id_t get_tile_type_tex_src_rect_id(const tile_type_id_t tile_type);
 
 zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int height, zfw_user_func_data_t *const zfw_data);
 
+/*
+    Updates the tile type at the given tilemap position alongside the sprite batch slot.
+*/
 void update_tilemap_tile_type_and_display(tilemap_t *const tilemap, const int tx, const int ty, const tile_type_id_t tile_type, const zfw_user_func_data_t *const zfw_data);
 
 #endif

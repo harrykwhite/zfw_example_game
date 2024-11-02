@@ -52,7 +52,7 @@ zfw_bool_t init_tilemap(tilemap_t *const tilemap, const int width, const int hei
     zfw_take_multiple_render_layer_sprite_batch_slots(tilemap->slot_keys, width * height, ZFW_SPRITE_BATCH_GROUP_ID__VIEW, 0, 0, zfw_data->sprite_batch_groups, zfw_data->main_mem_arena);
 
     // Set tile types.
-    for (int ty = tilemap->height / 2; ty < tilemap->height; ++ty)
+    for (int ty = (tilemap->height * 2) / 3; ty < tilemap->height; ++ty)
     {
         for (int tx = 0; tx < tilemap->width; ++tx)
         {
